@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruta 72</title>
+<style>
+*{box-sizing:border-box;font-family:system-ui}body{margin:0;background:#f6f8fb}header{display:flex;justify-content:space-between;padding:12px;background:#fff;border-bottom:1px solid #ddd}.logo{font-weight:900;color:#ea580c}.card{border:2px solid #2563eb;border-radius:16px;padding:12px;background:#fff;margin-bottom:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}input{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:10px;font-size:18px;font-weight:700;text-align:center}.res{display:flex;justify-content:space-between;background:#eff6ff;padding:10px;border-radius:10px;margin-top:8px}.big{font-weight:900;color:#1e40af}.foot{position:fixed;bottom:0;left:0;right:0;background:#1e293b;color:#fff;padding:12px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<header><div class="logo">Ruta 72 Santiago</div><div>MODO LOCAL</div></header>
+<div style="padding:12px;max-width:600px;margin:0 auto;padding-bottom:70px">
+<h3>CALCULADORA FRIO</h3>
+<div class="card"><b>QUESO PIZZA 6x2KG</b><div class="grid"><input id="a-j" type="number" placeholder="Jabas" oninput="calc()"><input id="a-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="a-t">0 bolsas</span><b id="a-p" class="big">0kg</b></div></div>
+<div class="card"><b>QUESO PEPE 4x5.67KG</b><div class="grid"><input id="b-j" type="number" placeholder="Jabas" oninput="calc()"><input id="b-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="b-t">0</span><b id="b-p" class="big">0kg</b></div></div>
+<div class="card"><b>PASTA 12x3KG</b><div class="grid"><input id="c-j" type="number" placeholder="Jabas" oninput="calc()"><input id="c-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="c-t">0</span><b id="c-p" class="big">0kg</b></div></div>
+<div class="card"><b>TIRAS 6.8KG</b><input id="d-b" type="number" placeholder="Bolsas" oninput="calc()"><div class="res"><span id="d-t">0</span><b id="d-p" class="big">0kg</b></div></div>
+<div class="card"><b>QBM 3x5KG</b><div class="grid"><input id="e-j" type="number" placeholder="Jabas" oninput="calc()"><input id="e-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="e-t">0</span><b id="e-p" class="big">0kg</b></div></div>
+</div>
+<div class="foot"><span id="tk">0kg TOTAL</span><b id="tb">0 bolsas</b></div>
+<script>
+function calc(){
+let g=(j,b,xj,xb,o,t,p)=>{let J=0,B=0;if(o){B=parseFloat(document.getElementById(j).value)||0}else{J=parseFloat(document.getElementById(j).value)||0;B=parseFloat(document.getElementById(b).value)||0}let tot=o?B:J*xj+B;let kg=tot*xb;document.getElementById(t).innerText=tot+' bolsas';document.getElementById(p).innerText=kg.toFixed(2)+'kg';return[tot,kg]};
+let r1=g('a-j','a-b',6,2,false,'a-t','a-p');let r2=g('b-j','b-b',4,5.67,false,'b-t','b-p');let r3=g('c-j','c-b',12,3,false,'c-t','c-p');let r4=g('d-b',null,1,6.8,true,'d-t','d-p');let r5=g('e-j','e-b',3,5,false,'e-t','e-p');
+document.getElementById('tk').innerText=(r1[1]+r2[1]+r3[1]+r4[1]+r5[1]).toFixed(2)+'kg TOTAL';document.getElementById('tb').innerText=(r1[0]+r2[0]+r3[0]+r4[0]+r5[0])+' bolsas';
+}
+</script>
+</body>
+  </html>
