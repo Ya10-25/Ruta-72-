@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pedido DELI Real</title>
+<style>
+body{margin:0;font-family:system-ui;background:#f1f5f9;padding-bottom:120px}
+header{background:#0f172a;color:#fff;padding:12px;text-align:center;font-weight:900}
+.card{background:#fff;margin:8px;border-radius:14px;padding:12px;border:1px solid #e2e8f0}
+label{font-size:11px;font-weight:800;color:#475569;display:block;margin-top:8px}
+input{width:100%;padding:11px;border:2px solid #e2e8f0;border-radius:10px;font-size:16px;font-weight:800;text-align:center;margin-top:3px;box-sizing:border-box}
+.row{display:flex;gap:6px}.col{flex:1}
+.kpi{background:#f8fafc;border-radius:10px;padding:8px;margin-top:6px;border:1px solid #e2e8f0;text-align:center}
+.kpi b{display:block;font-size:18px}
+.badge{padding:5px 10px;border-radius:20px;font-weight:900;font-size:11px}
+.bad{background:#fee2e2;color:#991b1b}
+.sec{font-weight:900;margin:8px 8px 0 8px;padding:8px;background:#0f172a;color:#fff;border-radius:10px;text-align:center;font-size:13px}
+.total{position:fixed;bottom:0;left:0;right:0;background:#dc2626;color:#fff;padding:10px;text-align:center;font-weight:900;font-size:12px}
+</style>
+</head>
+<body>
+<header>PEDIDO REAL - DOM A MIE<br><small style="color:#94a3b8">2500 pizzas - 0.21kg queso</small></header>
+<div class="card">
+<div class="row"><div class="col"><label>Pizzas semana</label><input id="pizzas" type="number" value="2500" oninput="calc()"></div><div class="col"><label>Dias Dom-Mie</label><input id="dias" type="number" value="3" oninput="calc()"></div></div>
+</div>
+<div class="sec">🧀 QUESO - 8kg Deli + 5kg QBM = 13kg mezcla</div>
+<div class="card">
+<div class="row"><div class="col"><label>Inv DELI hoy kg</label><input id="invD" type="number" value="0" oninput="calc()"></div><div class="col"><label>Inv QBM hoy kg</label><input id="invQ" type="number" value="0" oninput="calc()"></div></div>
+<div id="infoQ" class="kpi" style="font-size:12px"></div>
+<div class="row"><div class="col"><div class="kpi"><small>PEDIR DELI</small><b id="pedD">0</b><span id="pedDj"></span></div></div><div class="col"><div class="kpi"><small>PEDIR QBM</small><b id="pedQ">0</b><span id="pedQj"></span></div></div></div>
+</div>
+<div class="sec">🍕 PEPERONI 120kg / PASTA 150L semana</div>
+<div class="card">
+<div class="row"><div class="col"><label>PP semana kg</label><input id="ppSem" type="number" value="120" oninput="calc()"></div><div class="col"><label>Pasta semana L</label><input id="paSem" type="number" value="150" oninput="calc()"></div></div>
+<div class="row"><div class="col"><label>Inv PP hoy kg</label><input id="invPe" type="number" value="0" oninput="calc()"></div><div class="col"><label>Inv Pasta hoy L</label><input id="invPa" type="number" value="0" oninput="calc()"></div></div>
+<div class="row"><div class="col"><div class="kpi"><small>PEDIR PP</small><b id="pedPe">0</b><span id="pedPej"></span></div></div><div class="col"><div class="kpi"><small>PEDIR PASTA</small><b id="pedPa">0</b><span id="pedPaj"></span></div></div></div>
+</div>
+<div class="sec">🥓 TIRAS 30kg + ITALIANA 2 bolsas</div>
+<div class="card">
+<div class="row"><div class="col"><label>Tiras semana kg</label><input id="tiSem" type="number" value="30" oninput="calc()"></div><div class="col"><label>Italiana semana bolsas</label><input id="itSem" type="number" value="2" oninput="calc()"></div></div>
+<div class="row"><div class="col"><label>Inv Tiras hoy kg</label><input id="invTi" type="number" value="0" oninput="calc()"></div><div class="col"><label>Inv Italiana hoy bolsas</label><input id="invIt" type="number" value="0" oninput="calc()"></div></div>
+<div class="row"><div class="col"><div class="kpi"><small>PEDIR TIRAS</small><b id="pedTi">0</b></div></div><div class="col"><div class="kpi"><small>PEDIR ITALIANA</small><b id="pedIt">0</b></div></div></div>
+</div>
+<div class="total" id="tt">Calculando...</div>
+<script>
+function calc(){
+let pizzas=+pizzasEl.value||2500; let dias=+diasEl.value||3;
+let dMix=8, qMix=5, totalMix=13; let qpz=0.21;
+let invD=+invDEl.value||0, invQ=+invQEl.value||0;
+let ppSem=+ppSemEl.value||0, paSem=+paSemEl.value||0, invPe=+invPeEl.value||0, invPa=+invPaEl.value||0;
+let tiSem=+tiSemEl.value||0, itSem=+itSemEl.value||0, invTi=+invTiEl.value||0, invIt=+invItEl.value||0;
+let quesoTotal=pizzas*qpz; let mezclas=Math.ceil(quesoTotal/totalMix);
+let reqDeli=mezclas*dMix, reqQbm=mezclas*qMix;
+let gastoDeli=(reqDeli/7)*dias, gastoQbm=(reqQbm/7)*dias;
+let pedirDeli=Math.max(0, reqDeli - (invD - gastoDeli));
+let pedirQbm=Math.max(0, reqQbm - (invQ - gastoQbm));
+infoQ.innerHTML=`Necesitas: ${quesoTotal.toFixed(0)}kg | ${mezclas} mezclas | Deli ${reqDeli}kg QBM ${reqQbm}kg<br>Gasto Dom-Mie: Deli ${gastoDeli.toFixed(1)}kg QBM ${gastoQbm.toFixed(1)}kg`;
+pedDEl.innerText=pedirDeli.toFixed(0)+' kg'; pedQEl.innerText=pedirQbm.toFixed(0)+' kg';
+pedDj.innerHTML=`<br><span class="badge bad">${(pedirDeli/12).toFixed(2)} jabas</span>`;
+pedQj.innerHTML=`<br><span class="badge bad">${(pedirQbm/15).toFixed(2)} jabas</span>`;
+let gastoPe=ppSem*(dias/7), gastoPa=paSem*(dias/7);
+let pedirPe=Math.max(0, ppSem - (invPe - gastoPe));
+let pedirPa=Math.max(0, paSem - (invPa - gastoPa));
+pedPeEl.innerText=pedirPe.toFixed(0)+' kg'; pedPaEl.innerText=pedirPa.toFixed(0)+' L';
+pedPejEl.innerHTML=`<br><span class="badge bad">${(pedirPe/22.68).toFixed(2)} jabas</span>`;
+pedPajEl.innerHTML=`<br><span class="badge bad">${(pedirPa/36).toFixed(2)} jabas</span>`;
+let gastoTi=tiSem*(dias/7), gastoIt=itSem*(dias/7);
+let pedirTi=Math.max(0, tiSem - (invTi - gastoTi));
+let pedirIt=Math.max(0, itSem - (invIt - gastoIt));
+pedTiEl.innerText=pedirTi.toFixed(1)+' kg'; pedItEl.innerText=pedirIt.toFixed(1)+' bolsas';
+tt.innerText=`PEDIR: DELI ${pedirDeli.toFixed(0)}kg | QBM ${pedirQbm.toFixed(0)}kg | PP ${pedirPe.toFixed(0)}kg | PASTA ${pedirPa.toFixed(0)}L`;
+}
+let pizzasEl=document.getElementById('pizzas'),diasEl=document.getElementById('dias'),
+invDEl=document.getElementById('invD'),invQEl=document.getElementById('invQ'),infoQ=document.getElementById('infoQ'),
+pedDEl=document.getElementById('pedD'),pedQEl=document.getElementById('pedQ'),pedDj=document.getElementById('pedDj'),pedQj=document.getElementById('pedQj'),
+ppSemEl=document.getElementById('ppSem'),paSemEl=document.getElementById('paSem'),invPeEl=document.getElementById('invPe'),invPaEl=document.getElementById('invPa'),pedPeEl=document.getElementById('pedPe'),pedPaEl=document.getElementById('pedPa'),pedPejEl=document.getElementById('pedPej'),pedPajEl=document.getElementById('pedPaj'),
+tiSemEl=document.getElementById('tiSem'),itSemEl=document.getElementById('itSem'),invTiEl=document.getElementById('invTi'),invItEl=document.getElementById('invIt'),pedTiEl=document.getElementById('pedTi'),pedItEl=document.getElementById('pedIt'),tt=document.getElementById('tt');
+calc();
+</script>
+</body>
+  </html>
