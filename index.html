@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruta 72</title>
+<style>
+body{margin:0;font-family:system-ui;background:#f1f5f9;padding-bottom:80px}
+header{background:#0f172a;color:#fff;padding:12px;text-align:center}
+.card{background:#fff;margin:10px;border-radius:14px;padding:14px;border:1px solid #e2e8f0}
+input{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:10px;font-size:16px;font-weight:800;text-align:center}
+.total{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px;text-align:center;font-weight:800}
+</style>
+</head>
+<body>
+<header><b>Ruta 72 Santiago - FRIO</b></header>
+<div class="card"><h3>QUESO PIZZA (10kg)</h3><input id="a" type="number" value="0" placeholder="Jabas" oninput="c()"><input id="b" type="number" value="0" placeholder="Bolsas" oninput="c()"><div id="ak">0 kg</div></div>
+<div class="card"><h3>QUESO PEPE (22.68kg)</h3><input id="c2" type="number" value="0" placeholder="Jabas" oninput="c()"><input id="d" type="number" value="0" placeholder="Bolsas" oninput="c()"><div id="ck">0 kg</div></div>
+<div class="card"><h3>PASTA (36kg)</h3><input id="e" type="number" value="0" placeholder="Jabas" oninput="c()"><input id="f" type="number" value="0" placeholder="Bolsas" oninput="c()"><div id="ek">0 kg</div></div>
+<div class="total" id="tt">TOTAL: 0 kg</div>
+<script>
+function c(){
+let q=(+a.value||0)*10+(+b.value||0);
+let p=(+c2.value||0)*22.68+(+d.value||0)*5.67;
+let pa=(+e.value||0)*36+(+f.value||0)*3;
+ak.innerText=q.toFixed(1)+' kg';
+ck.innerText=p.toFixed(1)+' kg';
+ek.innerText=pa.toFixed(1)+' kg';
+tt
