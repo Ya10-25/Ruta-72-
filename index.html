@@ -2,30 +2,63 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ruta 72</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta 72 Santiago</title>
 <style>
-*{box-sizing:border-box;font-family:system-ui}body{margin:0;background:#f6f8fb}header{display:flex;justify-content:space-between;padding:12px;background:#fff;border-bottom:1px solid #ddd}.logo{font-weight:900;color:#ea580c}.card{border:2px solid #2563eb;border-radius:16px;padding:12px;background:#fff;margin-bottom:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}input{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:10px;font-size:18px;font-weight:700;text-align:center}.res{display:flex;justify-content:space-between;background:#eff6ff;padding:10px;border-radius:10px;margin-top:8px}.big{font-weight:900;color:#1e40af}.foot{position:fixed;bottom:0;left:0;right:0;background:#1e293b;color:#fff;padding:12px;display:flex;justify-content:space-between}
+*{box-sizing:border-box;font-family:system-ui,sans-serif}
+body{margin:0;background:#f1f5f9;padding-bottom:80px}
+header{background:#0f172a;color:white;padding:12px;text-align:center}
+.tabs{display:flex;gap:6px;background:#0f172a;padding:0 10px 10px;position:sticky;top:0}
+.tabs button{flex:1;padding:10px;border:0;border-radius:8px;font-weight:700;background:#1e293b;color:#94a3b8}
+.tabs button.active{background:white;color:#0f172a}
+.card{background:white;margin:10px;border-radius:12px;padding:12px;border:1px solid #e2e8f0}
+.card h3{margin:0 0 8px;font-size:13px;color:#334155}
+.input-group{margin-bottom:8px}
+.input-group label{font-size:11px;font-weight:700;color:#64748b;display:block}
+.input-group input{width:100%;padding:12px;border:2px solid #e2e8f0;border-radius:8px;font-size:16px;font-weight:700;text-align:center}
+.badge{background:#f1f5f9;padding:4px 8px;border-radius:20px;font-size:12px;font-weight:700}
+.total{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:white;padding:12px;text-align:center;font-weight:800}
+.merma-result{border:2px solid #f59e0b;border-radius:12px;padding:14px;text-align:center;margin-top:12px;background:#fef3c7}
+.merma-result span{font-size:30px;font-weight:900;display:block}
+.hidden{display:none}
 </style>
 </head>
 <body>
-<header><div class="logo">Ruta 72 Santiago</div><div>MODO LOCAL</div></header>
-<div style="padding:12px;max-width:600px;margin:0 auto;padding-bottom:70px">
-<h3>CALCULADORA FRIO</h3>
-<div class="card"><b>QUESO PIZZA 6x2KG</b><div class="grid"><input id="a-j" type="number" placeholder="Jabas" oninput="calc()"><input id="a-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="a-t">0 bolsas</span><b id="a-p" class="big">0kg</b></div></div>
-<div class="card"><b>QUESO PEPE 4x5.67KG</b><div class="grid"><input id="b-j" type="number" placeholder="Jabas" oninput="calc()"><input id="b-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="b-t">0</span><b id="b-p" class="big">0kg</b></div></div>
-<div class="card"><b>PASTA 12x3KG</b><div class="grid"><input id="c-j" type="number" placeholder="Jabas" oninput="calc()"><input id="c-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="c-t">0</span><b id="c-p" class="big">0kg</b></div></div>
-<div class="card"><b>TIRAS 6.8KG</b><input id="d-b" type="number" placeholder="Bolsas" oninput="calc()"><div class="res"><span id="d-t">0</span><b id="d-p" class="big">0kg</b></div></div>
-<div class="card"><b>QBM 3x5KG</b><div class="grid"><input id="e-j" type="number" placeholder="Jabas" oninput="calc()"><input id="e-b" type="number" placeholder="Bolsas" oninput="calc()"></div><div class="res"><span id="e-t">0</span><b id="e-p" class="big">0kg</b></div></div>
+<header><b>Ruta 72 Santiago</b><br><small>FRIO / ALMACEN / MERMA</small></header>
+<div class="tabs">
+<button id="tab-frio" class="active" onclick="showTab('frio')">FRIO</button>
+<button id="tab-almacen" onclick="showTab('almacen')">ALMACEN</button>
+<button id="tab-merma" onclick="showTab('merma')">MERMA</button>
 </div>
-<div class="foot"><span id="tk">0kg TOTAL</span><b id="tb">0 bolsas</b></div>
+<div id="view-frio">
+<div class="card"><h3>QUESO PIZZA</h3><div style="display:flex;gap:8px"><div class="input-group" style="flex:1"><label>Jabas</label><input type="number" id="qp-j" value="0" oninput="cf()"></div><div class="input-group" style="flex:1"><label>Bolsas</label><input type="number" id="qp-b" value="0" oninput="cf()"></div></div><div class="badge" id="qp-k">0 kg</div></div>
+<div class="card"><h3>QUESO PEPE 4x5.67KG</h3><div style="display:flex;gap:8px"><div class="input-group" style="flex:1"><label>Jabas</label><input type="number" id="pe-j" value="0" oninput="cf()"></div><div class="input-group" style="flex:1"><label>Bolsas</label><input type="number" id="pe-b" value="0" oninput="cf()"></div></div><div class="badge" id="pe-k">0 kg</div></div>
+<div class="card"><h3>PASTA 12x3KG</h3><div style="display:flex;gap:8px"><div class="input-group" style="flex:1"><label>Jabas</label><input type="number" id="pa-j" value="0" oninput="cf()"></div><div class="input-group" style="flex:1"><label>Bolsas 3kg</label><input type="number" id="pa-b" value="0" oninput="cf()"></div></div><div class="badge" id="pa-k">0 kg</div></div>
+<div class="card"><h3>TIRAS 6.8KG / QBM 3x5KG</h3><div style="display:flex;gap:8px"><div class="input-group" style="flex:1"><label>Jabas Tiras</label><input type="number" id="ti-j" value="0" oninput="cf()"></div><div class="input-group" style="flex:1"><label>Jabas QBM</label><input type="number" id="qb-j" value="0" oninput="cf()"></div></div><div class="badge" id="ti-k">0 kg</div></div>
+</div>
+<div id="view-almacen" class="hidden">
+<div class="card"><h3>Costales Harina 25kg</h3><div class="input-group"><label>Costales</label><input type="number" id="a-c" value="0" oninput="ca()"></div><div class="badge" id="a-c-k">0 kg</div></div>
+<div class="card"><h3>Levadura 450g</h3><div class="input-group"><label>Paquetes</label><input type="number" id="a-l" value="0" oninput="ca()"></div><div class="badge" id="a-l-k">0 kg</div></div>
+<div class="card"><h3>Lata Piña 3kg</h3><div class="input-group"><label>Latas</label><input type="number" id="a-p" value="0" oninput="ca()"></div><div class="badge" id="a-p-k">0 kg</div></div>
+<div class="card"><h3>Garrafón Agua 18L</h3><div class="input-group"><label>Garrafones</label><input type="number" id="a-a" value="0" oninput="ca()"></div><div class="badge" id="a-a-k">0 Lts</div></div>
+</div>
+<div id="view-merma" class="hidden">
+<div class="card">
+<h3>MERMA AYER - 10KG x BATIDA</h3>
+<div class="input-group"><label>1. Harina que teníamos AYER (kg)</label><input type="number" id="m1" value="0" oninput="cm()"></div>
+<div class="input-group"><label>2. Harina con la que AMANECIMOS HOY (kg)</label><input type="number" id="m2" value="0" oninput="cm()"></div>
+<div class="input-group"><label>3. Batidas que se hicieron AYER</label><input type="number" id="m3" value="0" oninput="cm()"></div>
+<div class="input-group"><label>Kg por batida</label><input type="number" id="m4" value="10" oninput="cm()"></div>
+<div class="merma-result" id="mb"><small>RESULTADO</small><span id="mv">0 kg</span><small id="md">Llena los datos</small></div>
+</div>
+</div>
+<div class="total" id="tt">TOTAL: 0kg</div>
 <script>
-function calc(){
-let g=(j,b,xj,xb,o,t,p)=>{let J=0,B=0;if(o){B=parseFloat(document.getElementById(j).value)||0}else{J=parseFloat(document.getElementById(j).value)||0;B=parseFloat(document.getElementById(b).value)||0}let tot=o?B:J*xj+B;let kg=tot*xb;document.getElementById(t).innerText=tot+' bolsas';document.getElementById(p).innerText=kg.toFixed(2)+'kg';return[tot,kg]};
-let r1=g('a-j','a-b',6,2,false,'a-t','a-p');let r2=g('b-j','b-b',4,5.67,false,'b-t','b-p');let r3=g('c-j','c-b',12,3,false,'c-t','c-p');let r4=g('d-b',null,1,6.8,true,'d-t','d-p');let r5=g('e-j','e-b',3,5,false,'e-t','e-p');
-document.getElementById('tk').innerText=(r1[1]+r2[1]+r3[1]+r4[1]+r5[1]).toFixed(2)+'kg TOTAL';document.getElementById('tb').innerText=(r1[0]+r2[0]+r3[0]+r4[0]+r5[0])+' bolsas';
-}
+function showTab(t){document.getElementById('view-frio').classList.add('hidden');document.getElementById('view-almacen').classList.add('hidden');document.getElementById('view-merma').classList.add('hidden');document.getElementById('tab-frio').classList.remove('active');document.getElementById('tab-almacen').classList.remove('active');document.getElementById('tab-merma').classList.remove('active');document.getElementById('view-'+t).classList.remove('hidden');document.getElementById('tab-'+t).classList.add('active');if(t=='frio')cf();if(t=='almacen')ca();if(t=='merma')cm();}
+function cf(){let qp=(+document.getElementById('qp-j').value||0)*10+(+document.getElementById('qp-b').value||0);let pe=(+document.getElementById('pe-j').value||0)*22.68+(+document.getElementById('pe-b').value||0)*5.67;let pa=(+document.getElementById('pa-j').value||0)*36+(+document.getElementById('pa-b').value||0)*3;let ti=(+document.getElementById('ti-j').value||0)*6.8+(+document.getElementById('qb-j').value||0)*15;document.getElementById('qp-k').innerText=qp.toFixed(1)+' kg';document.getElementById('pe-k').innerText=pe.toFixed(1)+' kg';document.getElementById('pa-k').innerText=pa.toFixed(1)+' kg';document.getElementById('ti-k').innerText=ti.toFixed(1)+' kg';document.getElementById('tt').innerText='TOTAL FRIO: '+(qp+pe+pa+ti).toFixed(1)+'kg';}
+function ca(){let c=(+document.getElementById('a-c').value||0)*25;let l=(+document.getElementById('a-l').value||0)*0.45;let p=(+document.getElementById('a-p').value||0)*3;let a=(+document.getElementById('a-a').value||0)*18;document.getElementById('a-c-k').innerText=c+' kg';document.getElementById('a-l-k').innerText=l.toFixed(2)+' kg';document.getElementById('a-p-k').innerText=p+' kg';document.getElementById('a-a-k').innerText=a+' Lts';document.getElementById('tt').innerText='ALMACEN: '+(c+l+p).toFixed(1)+'kg + '+a+'L';}
+function cm(){let ayer=+document.getElementById('m1').value||0;let hoy=+document.getElementById('m2').value||0;let bat=+document.getElementById('m3').value||0;let kgb=+document.getElementById('m4').value||10;let real=ayer-hoy;let teor=bat*kgb;let merma=real-teor;let box=document.getElementById('mb');let v=document.getElementById('mv');let d=document.getElementById('md');if(merma>0.1){box.style.background='#fee2e2';box.style.borderColor='#ef4444';v.innerText=merma.toFixed(2)+' kg MERMA';}else if(merma<-0.1){box.style.background='#dcfce7';box.style.borderColor='#22c55e';v.innerText=Math.abs(merma).toFixed(2)+' kg SOBRANTE';}else{box.style.background='#fef3c7';box.style.borderColor='#f59e0b';v.innerText='0 kg CUADRA';}d.innerText=`Real: ${real}kg (${ayer}-${hoy}) | Teorico: ${teor}kg (${bat}x${kgb})`;document.getElementById('tt').innerText='MERMA AYER: '+merma.toFixed(2)+'kg';}
+cf();
 </script>
 </body>
-                                                      </html>
-                                                      
+                                                                                                                                                                                                                                                                      </html>
