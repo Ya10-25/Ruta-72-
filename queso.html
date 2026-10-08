@@ -2,51 +2,82 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pedido DELI - Varea</title>
+<title>Pedido DELI</title>
 <style>
-body{margin:0;font-family:system-ui;background:#fffbeb;padding-bottom:110px}
-header{background:#b45309;color:#fff;padding:14px;text-align:center;font-weight:900}
-.card{background:#fff;margin:10px;border-radius:14px;padding:14px;border:2px solid #fde68a}
-label{font-size:11px;font-weight:800;color:#92400e;display:block;margin-top:8px}
-input{width:100%;padding:11px;border:2px solid #fde68a;border-radius:10px;font-size:16px;font-weight:800;text-align:center;margin-top:4px;box-sizing:border-box}
+body{margin:0;font-family:system-ui;background:#fffbeb;padding-bottom:90px}
+header{background:#b45309;color:#fff;padding:12px;text-align:center;font-weight:900}
+.card{background:#fff;margin:10px;border-radius:12px;padding:12px;border:2px solid #fde68a}
+label{font-size:10px;font-weight:800;color:#92400e}
+input{width:100%;padding:10px;border:2px solid #fde68a;border-radius:10px;font-size:16px;font-weight:800;text-align:center;margin-top:3px;box-sizing:border-box}
 .row{display:flex;gap:8px}.col{flex:1}
-.kpi{background:#f8fafc;border-radius:10px;padding:10px;margin-top:8px;border:1px solid #e2e8f0;text-align:center}
-.kpi b{display:block;font-size:20px}
-.badge{padding:6px 10px;border-radius:20px;font-weight:900;font-size:12px}
-.bad{background:#fee2e2;color:#991b1b}.ok{background:#dcfce7;color:#166534}
-.calc{background:#fef3c7;border:1px dashed #f59e0b;padding:10px;border-radius:10px;margin-top:8px;font-size:12px}
-.total{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:12px;text-align:center;font-weight:900;font-size:12px}
+.calc{background:#fef3c7;border:1px dashed #f59e0b;padding:8px;border-radius:8px;margin-top:6px;font-size:12px;font-weight:700}
+.kpi{background:#f8fafc;border-radius:10px;padding:8px;margin-top:6px;text-align:center;border:1px solid #e2e8f0}
+.kpi b{display:block;font-size:18px}
+.total{position:fixed;bottom:0;left:0;right:0;background:#0f172a;color:#fff;padding:10px;text-align:center;font-weight:900;font-size:13px}
 </style>
 </head>
 <body>
-<header>QUESO DELI - VENTAS BAREA<br><small>Domingo pido, Miércoles llega</small></header>
-
+<header>QUESO DELI - DOM A MIE</header>
 <div class="card">
-<h3>1) Tus ventas (barea)</h3>
-<div class="row"><div class="col"><label>Lun a Jue por día (290)</label><input id="lunJue" type="number" value="290" oninput="calc()"></div><div class="col"><label>Vie, Sab, Dom por día (350)</label><input id="vieDom" type="number" value="350" oninput="calc()"></div></div>
-<div class="calc" id="infoSem"></div>
+<b>1) Tus ventas (barea)</b>
+<div class="row"><div class="col"><label>Lun a Jue x dia (290)</label><input id="lj" type="number" value="290" oninput="C()"></div><div class="col"><label>Vie,Sab,Dom x dia (350)</label><input id="vsd" type="number" value="350" oninput="C()"></div></div>
+<div class="calc" id="i1"></div>
 </div>
-
 <div class="card">
-<h3>2) Mezcla igual a tu libreta</h3>
-<div class="row"><div class="col"><label>Deli por mezcla</label><input id="dMix" type="number" value="8" oninput="calc()"></div><div class="col"><label>QBM por mezcla</label><input id="qMix" type="number" value="5" oninput="calc()"></div><div class="col"><label>Queso por pizza</label><input id="qpz" type="number" value="0.21" step="0.01" oninput="calc()"></div></div>
-<div class="calc" id="infoMezcla"></div>
+<b>2) Mezcla igual a tu libreta</b>
+<div class="row"><div class="col"><label>Deli x mezcla</label><input id="dm" type="number" value="8" oninput="C()"></div><div class="col"><label>QBM x mezcla</label><input id="qm" type="number" value="5" oninput="C()"></div><div class="col"><label>Queso x pizza</label><input id="qp" type="number" value="0.21" step="0.01" oninput="C()"></div></div>
+<div class="calc" id="i2"></div>
 </div>
-
 <div class="card">
-<h3>3) Inventario HOY domingo</h3>
-<div class="row"><div class="col"><label>Inv Deli hoy kg</label><input id="invD" type="number" value="0" oninput="calc()"></div><div class="col"><label>Inv QBM hoy kg</label><input id="invQ" type="number" value="0" oninput="calc()"></div></div>
+<b>3) Inventario HOY domingo</b>
+<div class="row"><div class="col"><label>Inv Deli hoy kg</label><input id="invD" type="number" value="100" oninput="C()"></div><div class="col"><label>Inv QBM hoy kg</label><input id="invQ" type="number" value="50" oninput="C()"></div></div>
 </div>
-
-<div class="card" style="border-color:#fca5a5;background:#fef2f2">
-<h3>4) Gasto Dom a Mie automático</h3>
-<div id="infoGasto" class="calc"></div>
+<div class="card" style="background:#fef2f2;border-color:#fca5a5">
+<b>4) Gasto Dom a Mie automatico</b>
+<div class="calc" id="i3"></div>
 </div>
-
-<div class="card" style="border-color:#86efac;background:#f0fdf4">
-<h3>PEDIDO FINAL - Ya restando Dom-Mie</h3>
-<div class="row"><div class="col"><div class="kpi"><small>DELI necesario semana</small><b id="reqD"></b></div><div class="kpi"><small>Stock real al llegar Mie</small><b id="realD"></b></div><div class="kpi" style="background:#dcfce7"><small>PEDIR DELI</small><b id="pedD" style="font-size:24px"></b><span id="pedDj"></span></div></div>
-<div class="col"><div class="kpi"><small>QBM necesario semana</small><b id="reqQ"></b></div><div class="kpi"><small>Stock real al llegar Mie</small><b id="realQ"></b></div><div class="kpi" style="background:#dcfce7"><small>PEDIR QBM</small><b id="pedQ" style="font-size:24px"></b><span id="pedQj"></span></div></div></div>
+<div class="card" style="background:#f0fdf4;border-color:#86efac">
+<b>PEDIDO FINAL - Ya restando Dom-Mie</b>
+<div class="row"><div class="col"><div class="kpi"><small>DELI necesario</small><b id="rD"></b></div><div class="kpi"><small>Real al llegar Mie</small><b id="reD"></b></div><div class="kpi" style="background:#dcfce7"><small>PEDIR DELI</small><b id="pD"></b><div id="pDj" style="font-size:11px"></div></div></div><div class="col"><div class="kpi"><small>QBM necesario</small><b id="rQ"></b></div><div class="kpi"><small>Real al llegar Mie</small><b id="reQ"></b></div><div class="kpi" style="background:#dcfce7"><small>PEDIR QBM</small><b id="pQ"></b><div id="pQj" style="font-size:11px"></div></div></div></div>
 </div>
-
-<div class="total" id="
+<div class="total" id="tt"></div>
+<script>
+function C(){
+let lj=parseFloat(document.getElementById('lj').value)||0;
+let vsd=parseFloat(document.getElementById('vsd').value)||0;
+let dm=parseFloat(document.getElementById('dm').value)||0;
+let qm=parseFloat(document.getElementById('qm').value)||0;
+let qp=parseFloat(document.getElementById('qp').value)||0;
+let invD=parseFloat(document.getElementById('invD').value)||0;
+let invQ=parseFloat(document.getElementById('invQ').value)||0;
+let totSem = lj*4 + vsd*3;
+let quesoTot = totSem*qp;
+let totMix = dm+qm;
+let mez = totMix>0?Math.ceil(quesoTot/totMix):0;
+let reqD = mez*dm;
+let reqQ = mez*qm;
+let pizzDM = vsd + lj*2;
+let quesoDM = pizzDM*qp;
+let gasD = totMix>0?quesoDM*(dm/totMix):0;
+let gasQ = totMix>0?quesoDM*(qm/totMix):0;
+document.getElementById('i1').innerText = "Semana: "+lj+"x4="+(lj*4)+" + "+vsd+"x3="+(vsd*3)+" = "+totSem+" pizzas | Queso "+quesoTot.toFixed(1)+"kg";
+document.getElementById('i2').innerText = "Mezcla "+totMix+"kg | "+quesoTot.toFixed(1)+"/"+totMix+"="+(quesoTot/totMix).toFixed(2)+" = "+mez+" mezclas | Deli "+reqD+"kg QBM "+reqQ+"kg";
+document.getElementById('i3').innerText = "Dom "+vsd+" + Lun "+lj+" + Mar "+lj+" = "+pizzDM+" pizzas | Queso "+quesoDM.toFixed(1)+"kg | Deli "+gasD.toFixed(1)+"kg QBM "+gasQ.toFixed(1)+"kg";
+let realD = invD - gasD;
+let realQ = invQ - gasQ;
+let pedirD = reqD - realD; if(pedirD<0)pedirD=0;
+let pedirQ = reqQ - realQ; if(pedirQ<0)pedirQ=0;
+document.getElementById('rD').innerText = reqD+" kg";
+document.getElementById('rQ').innerText = reqQ+" kg";
+document.getElementById('reD').innerText = realD.toFixed(1)+" kg";
+document.getElementById('reQ').innerText = realQ.toFixed(1)+" kg";
+document.getElementById('pD').innerText = pedirD.toFixed(1)+" kg";
+document.getElementById('pQ').innerText = pedirQ.toFixed(1)+" kg";
+document.getElementById('pDj').innerText = (pedirD/12).toFixed(2)+" jabas 12kg";
+document.getElementById('pQj').innerText = (pedirQ/15).toFixed(2)+" jabas 15kg";
+document.getElementById('tt').innerText = "PEDIR: DELI "+pedirD.toFixed(0)+"kg | QBM "+pedirQ.toFixed(0)+"kg | Total "+totSem+" pizzas";
+}
+C();
+</script>
+</body>
+</html>
